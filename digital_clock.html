@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Digital Clock</title>
+    <style type="text/css">
+        @import url('https://fonts.googleapis.com/css?family=Orbitron');
+
+        @import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+
+  }
+  html,body{
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+
+  }
+  #dayName
+{
+    font-size: 10px;
+    font-weight: 600;
+    
+   margin-left: 90px;
+margin-top: 10px;
+    border-radius: 10px;
+   position: absolute;
+   top: 1%;
+left: -30%;
+z-index: 1;
+    font-family: 'Poppins', sans-serif;
+    padding: 10px;
+    color: #fff;
+     background: linear-gradient(135deg, #79FE0C, #00FFA0, #79FE0C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+}
+
+  .container{
+    height: 80px;
+    width: 205px;
+    position: relative;
+    background: white;
+    border-radius: 10px;
+    cursor: default;
+   
+
+  }
+  .container .dispClock,
+  .container {
+    position: absolute;
+margin-top: 180px;
+    left: -20%;
+transition: 3s;
+    transform: translate(-50%, -50%);
+    animation: right 3s both 1s cubic-bezier(0, 0.1, 0.75, 1);
+  }
+  @keyframes right{
+    0%{
+
+    }
+    100%{
+       left: 102px;
+    }
+}
+  .container .dispClock{
+    margin-top: 40px;
+    left: 50%;
+    height: 65px;
+    width: 175px;
+    background: linear-gradient(147deg, #242526 0%, #3A3B3C 74%);
+    border-radius: 6px;
+    text-align: center;
+     box-shadow: 5px 5px 5px grey;
+  }
+  .dispClock #time{
+    line-height: 80px;
+    color: #fff;
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-family: 'Orbitron', sans-serif;
+    background: linear-gradient(135deg, #79FE0C, #00FFA0, #79FE0C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+  }
+   .container:hover{
+
+    transition: 3s;
+opacity: 0;
+
+   }
+
+   h1{
+    position: absolute;
+    font-family: 'Oswald', sans-serif;
+    margin-top: 100px;
+    font-size: 20px;
+    font-weight: 900;
+     background: linear-gradient(135deg, #79FE0C,#14ffe9, #ffeb3b, #ff00e0);
+     padding-left: 15px;
+     padding-right: 15px;
+     padding-top: 10px;
+     padding-bottom: 10px;
+     left: -200px;
+     animation: left 3s both 1.5s cubic-bezier(0, 0.1, 0.75, 1);
+     border-radius: 10px;
+     box-shadow: 5px 5px 5px black;
+    text-align: center;
+    letter-spacing: 2px;
+
+
+   }
+   @keyframes left{
+    0%{
+
+    }
+    100%{
+        left: 42px;
+    }
+   }
+
+    </style>
+
+  </head>
+    <body>
+        <!--Display day information e.g Wednesday March 12,2021-->
+        <div id="dayIntro">
+           
+        </div>
+       <h1 id="text">WELCOME</h1>
+        <div class="container" id="clock">
+             <p id="dayName"></p>
+            <!-- Display time -->
+            <div class="dispClock">
+                <div id="time"></div>
+            </div>
+        </div>
+       
+        <script type="text/javascript">
+            setInterval(currentTime, 1000);
+
+function currentTime()
+{
+    let time = new Date();   // creating object of Date class
+    let dayName=time.getDay();
+    let month=time.getMonth();
+    let year=time.getFullYear();
+    let date=time.getDate();
+    let hour = time.getHours();
+    let min = time.getMinutes();
+    let sec = time.getSeconds();
+
+    var am_pm = "AM";
+    if(hour==12)
+    am_pm = "PM";
+    if (hour > 12) {
+    hour -= 12;
+    am_pm = "PM";
+    }
+    if (hour == 0) {
+    hour = 12;
+    am_pm = "AM";
+    }
+
+    hour = hour < 10 ? "0" + hour : hour;
+    min = min < 10 ? "0" + min : min;
+    sec = sec < 10 ? "0" + sec : sec;
+
+   //value of current time
+   let currentTime = hour + ":" + min + ":" + sec +" "+ am_pm;
+
+  // value of present day(Day, Month, Year)
+  var months=["January","February","March","April","May","June","July","August","September","October","November","December"];
+  var week=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+  var presentDay=week[dayName]+", "+months[month]+" "+date+", "+year;
+
+  const clock = document.getElementById("time");
+  const dayIntro=document.getElementById("dayName");
+
+  clock.innerHTML = currentTime;
+  dayIntro.innerHTML = presentDay;
+}
+
+currentTime();  //calling currentTime() function to initiate the process
+        </script>
+    </body>
+</html>
